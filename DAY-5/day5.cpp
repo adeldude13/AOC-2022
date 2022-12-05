@@ -4,17 +4,17 @@
 #include <fstream>
 #include <stack>
 
+#define isNum(i) ((int)(i) >= 48 && (int)(i) <= 57)
+
 std::vector<int> parseNums(std::string line) {
 	std::vector<int> ret;
 	for(int i=0;i<line.size();i++) {
-		if((int)(line[i]) >= 48 && (int)(line[i]) <= 57) {
-			std::string number = "";
-			while((int)line[i] >= 48 && (int)line[i] <= 57) {
-				number += line[i];
-				i++;
-			}
-			ret.push_back(std::stoi(number)-1);
+		std::string number = "";
+		while(isNum(line[i]) && i < line.size()) {
+			number += line[i];
+			i++;
 		}
+		if(number != "") ret.push_back(std::stoi(number)-1);
 	}
 	return ret;
 }
@@ -29,9 +29,6 @@ std::stack<char> reverseStack(std::stack<char> current) {
 }
 
 int day1(int argc, char **argv) {
-	if(argc != 2) {
-		return 1;
-	}
 	std::ifstream file(argv[1]);
 	std::string line;
 	std::vector<std::stack<char>> crates(9);
@@ -66,9 +63,6 @@ int day1(int argc, char **argv) {
 }
 
 int day2(int argc, char **argv) {
-	if(argc != 2) {
-		return 1;
-	}
 	std::ifstream file(argv[1]);
 	std::string line;
 	std::vector<std::stack<char>> crates(9);
